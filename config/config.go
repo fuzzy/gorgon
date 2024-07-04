@@ -49,6 +49,7 @@ type GorgonRepoConfig struct {
 }
 
 type GorgonConfig struct {
+	filename string
 	// GitHub User (this should be the gorgon user's GitHub username)
 	// We do no authentication setup in this project, that is handeled
 	// by the user's GitHub CLI setup, so we just need the username for
@@ -64,9 +65,15 @@ type GorgonConfig struct {
 	Agenda CorgonAgendaConfig `json:"agenda"`
 }
 
+// NewGorgonConfig creates a new GorgonConfig object from the specified file.
+// If the file does not exist, it will return an GorgonConfig object with
+// default values set.
+// If the file does exist, it will load the configuration from the file.
+// If there is an error loading the file, it will return an error.
 func NewGorgonConfig(fn string) (*GorgonConfig, error) {
 	// Create a new GorgonConfig object
 	retv := &GorgonConfig{
+		filename: fn,
 		Username: os.Getenv("USER"),
 		Projects: []GorgonProjectConfig{},
 		Repos:    []GorgonRepoConfig{},
@@ -84,7 +91,7 @@ func NewGorgonConfig(fn string) (*GorgonConfig, error) {
 	}
 
 	if _, err := os.Stat(fn); err != nil {
-		return nil, err
+		return retv, nil
 	}
 
 	if err := retv.load(fn); err != nil {
@@ -94,7 +101,9 @@ func NewGorgonConfig(fn string) (*GorgonConfig, error) {
 	return retv, nil
 }
 
-func (gc *GorgonConfig) Save(fn string) error {
+// Save writes the GorgonConfig object to the file specified in the object.
+// If there is an error writing the file, it will return an error.
+func (gc *GorgonConfig) Save() error {
 	data, err := json.MarshalIndent(gc, "", "  ")
 	if err != nil {
 		return err
@@ -105,7 +114,7 @@ func (gc *GorgonConfig) Save(fn string) error {
 		os.MkdirAll(fmt.Sprintf("%s/.config/gorgon", os.Getenv("HOME")), 0755)
 	}
 
-	ofp, err := os.Create(fn)
+	ofp, err := os.Create(gc.filename)
 	if err != nil {
 		return err
 	}

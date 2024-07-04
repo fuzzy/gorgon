@@ -12,7 +12,7 @@ import "github.com/fuzzy/gorgon/config"
 - [type GorgonCacheConfig](<#GorgonCacheConfig>)
 - [type GorgonConfig](<#GorgonConfig>)
   - [func NewGorgonConfig\(fn string\) \(\*GorgonConfig, error\)](<#NewGorgonConfig>)
-  - [func \(gc \*GorgonConfig\) Save\(fn string\) error](<#GorgonConfig.Save>)
+  - [func \(gc \*GorgonConfig\) Save\(\) error](<#GorgonConfig.Save>)
 - [type GorgonProjectConfig](<#GorgonProjectConfig>)
 - [type GorgonRepoConfig](<#GorgonRepoConfig>)
 
@@ -58,6 +58,7 @@ type GorgonCacheConfig struct {
 
 ```go
 type GorgonConfig struct {
+
     // GitHub User (this should be the gorgon user's GitHub username)
     // We do no authentication setup in this project, that is handeled
     // by the user's GitHub CLI setup, so we just need the username for
@@ -71,6 +72,7 @@ type GorgonConfig struct {
     Cache GorgonCacheConfig `json:"cache"`
     // Agenda configuration (tailor to your org configuration)
     Agenda CorgonAgendaConfig `json:"agenda"`
+    // contains filtered or unexported fields
 }
 ```
 
@@ -81,16 +83,16 @@ type GorgonConfig struct {
 func NewGorgonConfig(fn string) (*GorgonConfig, error)
 ```
 
-
+NewGorgonConfig creates a new GorgonConfig object from the specified file. If the file does not exist, it will return an GorgonConfig object with default values set. If the file does exist, it will load the configuration from the file. If there is an error loading the file, it will return an error.
 
 <a name="GorgonConfig.Save"></a>
 ### func \(\*GorgonConfig\) Save
 
 ```go
-func (gc *GorgonConfig) Save(fn string) error
+func (gc *GorgonConfig) Save() error
 ```
 
-
+Save writes the GorgonConfig object to the file specified in the object. If there is an error writing the file, it will return an error.
 
 <a name="GorgonProjectConfig"></a>
 ## type GorgonProjectConfig

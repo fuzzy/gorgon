@@ -1,4 +1,4 @@
-package main
+package ghapi
 
 import (
 	"encoding/json"

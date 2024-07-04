@@ -14,7 +14,7 @@ import (
 func NewGorgonConfig(fn string) (*GorgonConfig, error) {
 	// Create a new GorgonConfig object
 	retv := &GorgonConfig{
-		filename: fn,
+		Filename: fn,
 		Username: os.Getenv("USER"),
 		Projects: []GorgonProjectConfig{},
 		Repos:    []GorgonRepoConfig{},
@@ -55,7 +55,7 @@ func (gc *GorgonConfig) Save() error {
 		os.MkdirAll(fmt.Sprintf("%s/.config/gorgon", os.Getenv("HOME")), 0755)
 	}
 
-	ofp, err := os.Create(gc.filename)
+	ofp, err := os.Create(gc.Filename)
 	if err != nil {
 		return err
 	}

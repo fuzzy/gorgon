@@ -43,7 +43,7 @@ type GorgonRepoConfig struct {
 }
 
 type GorgonConfig struct {
-	filename string
+	Filename string
 	// GitHub User (this should be the gorgon user's GitHub username)
 	// We do no authentication setup in this project, that is handeled
 	// by the user's GitHub CLI setup, so we just need the username for

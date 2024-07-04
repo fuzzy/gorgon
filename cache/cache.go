@@ -24,12 +24,12 @@ func NewGorgonCache(dir string) *GorgonCache {
 		TempDir: "temp",
 	}
 
-	retv.initCheck()
+	retv.InitCheck()
 
 	return retv
 }
 
-func (gc *GorgonCache) initCheck() {
+func (gc *GorgonCache) InitCheck() {
 	for _, dir := range []string{gc.Dir, gc.TempDir} {
 		if !utils.Exists(dir) {
 			os.MkdirAll(dir, 0755)

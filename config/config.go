@@ -87,7 +87,7 @@ func NewGorgonConfig(fn string) (*GorgonConfig, error) {
 		return nil, err
 	}
 
-	if err = retv.load(fn); err != nil {
+	if err := retv.load(fn); err != nil {
 		return nil, err
 	}
 

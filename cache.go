@@ -26,19 +26,8 @@ func NewGorgonCache(dir string) *GorgonCache {
 
 func (gc *GorgonCache) initCheck() {
 	for _, dir := range []string{gc.Dir, gc.LastSyncDir, gc.TempDir} {
-		if !gc.exists(dir) {
+		if !exists(dir) {
 			os.MkdirAll(dir, 0755)
 		}
-	}
-}
-
-func (gc *GorgonCache) exists(fname string) bool {
-	_, err := os.Stat(fname)
-	if err == nil {
-		return true
-	} else if os.IsNotExist(err) {
-		return false
-	} else {
-		return false
 	}
 }

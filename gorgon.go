@@ -7,6 +7,7 @@ import (
 
 func main() {
 	opts := parseArgs()
+	cnfg := NewGorgonConfig(opts.Config)
 
 	cmd := fmt.Sprintf("gh project item-list %d --owner %s -L %d --format json", opts.ID, opts.Owner, opts.Results)
 	fmt.Println(cmd)

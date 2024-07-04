@@ -49,13 +49,13 @@ type ItemList struct {
 	TotalCount int    `json:"totalCount"`
 }
 
-func syncDownStream(cmd string) (*ItemList, error) {
+func SyncDownStream(cmd string) (*ItemList, error) {
 	fmt.Println(cmd)
 
 	return nil, nil
 }
 
-func syncDownStreamMock(fname string) (*ItemList, error) {
+func SyncDownStreamMock(fname string) (*ItemList, error) {
 	retv := ItemList{}
 	buf, err := os.ReadFile(fname)
 	if err != nil {

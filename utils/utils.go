@@ -1,8 +1,8 @@
-package main
+package utils
 
 import "os"
 
-func exists(fname string) bool {
+func Exists(fname string) bool {
 	_, err := os.Stat(fname)
 	if err == nil {
 		return true

@@ -1,8 +1,10 @@
-package main
+package cache
 
 import (
 	"os"
 	"time"
+
+	"github.com/fuzzy/gorgon/utils"
 )
 
 type GorgonCache struct {
@@ -26,7 +28,7 @@ func NewGorgonCache(dir string) *GorgonCache {
 
 func (gc *GorgonCache) initCheck() {
 	for _, dir := range []string{gc.Dir, gc.LastSyncDir, gc.TempDir} {
-		if !exists(dir) {
+		if !utils.Exists(dir) {
 			os.MkdirAll(dir, 0755)
 		}
 	}
